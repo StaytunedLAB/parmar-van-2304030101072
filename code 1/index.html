@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inline CSS Form</title>
+</head>
+<body style="font-family: Arial, sans-serif; background:#f3f4f6; padding:30px;">
+
+  <div style="
+      max-width:500px;
+      margin:auto;
+      background:white;
+      padding:25px;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    ">
+    
+    <h2 style="text-align:center; margin-bottom:20px;">Registration Form</h2>
+
+    <form>
+
+      <!-- Full Name -->
+      <label style="font-weight:bold;">Full Name</label>
+      <input type="text" placeholder="Enter your name" required
+        style="
+          width:100%; padding:10px; margin:8px 0 16px 0;
+          border:1px solid #ccc; border-radius:6px;
+        ">
+
+      <!-- Email -->
+      <label style="font-weight:bold;">Email</label>
+      <input type="email" placeholder="Enter your email" required
+        style="
+          width:100%; padding:10px; margin:8px 0 16px 0;
+          border:1px solid #ccc; border-radius:6px;
+        ">
+
+      <!-- Password -->
+      <label style="font-weight:bold;">Password</label>
+      <input type="password" placeholder="Enter password" required
+        style="
+          width:100%; padding:10px; margin:8px 0 16px 0;
+          border:1px solid #ccc; border-radius:6px;
+        ">
+
+      <!-- Gender -->
+      <label style="font-weight:bold;">Gender</label><br>
+      <label><input type="radio" name="gender" value="male"> Male</label>
+      <label style="margin-left:15px;"><input type="radio" name="gender" value="female"> Female</label>
+      <label style="margin-left:15px;"><input type="radio" name="gender" value="other"> Other</label>
+
+      <br><br>
+
+      <!-- Country -->
+      <label style="font-weight:bold;">Country</label>
+      <select required
+        style="
+          width:100%; padding:10px; margin:8px 0 16px 0;
+          border:1px solid #ccc; border-radius:6px;
+        ">
+        <option value="">Select Country</option>
+        <option>India</option>
+        <option>USA</option>
+        <option>UK</option>
+        <option>Canada</option>
+      </select>
+
+      <!-- Message -->
+      <label style="font-weight:bold;">Message</label>
+      <textarea placeholder="Your message" rows="4"
+        style="
+          width:100%; padding:10px; margin:8px 0 16px 0;
+          border:1px solid #ccc; border-radius:6px;
+        ">
+      </textarea>
+
+      <!-- Submit Button -->
+      <button type="submit"
+        style="
+          width:100%; padding:12px;
+          background:#2563eb; color:white;
+          border:none; border-radius:6px;
+          font-size:16px; font-weight:bold;
+          cursor:pointer;
+        ">
+        Submit
+      </button>
+
+    </form>
+  </div>
+
+</body>
+</html>
