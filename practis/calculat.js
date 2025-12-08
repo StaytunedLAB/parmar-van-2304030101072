@@ -1,34 +1,20 @@
 import java.util.Scanner;
 
-public class GradeCalculator {
+public class InterestCalculator {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter your marks (0–100): ");
-        int marks = sc.nextInt();
-        char grade;
+        System.out.print("Enter Principal: ");
+        double p = sc.nextDouble();
+        System.out.print("Enter Rate: ");
+        double r = sc.nextDouble();
+        System.out.print("Enter Time (years): ");
+        double t = sc.nextDouble();
 
-        switch (marks / 10) {
-            case 10:
-            case 9:
-                grade = 'A';
-                break;
-            case 8:
-                grade = 'B';
-                break;
-            case 7:
-                grade = 'C';
-                break;
-            case 6:
-                grade = 'D';
-                break;
-            case 5:
-                grade = 'E';
-                break;
-            default:
-                grade = 'F';
-        }
+        double si = (p * r * t) / 100;
+        double ci = p * Math.pow(1 + (r / 100), t) - p;
 
-        System.out.println("Your Grade is: " + grade);
+        System.out.println("Simple Interest: " + si);
+        System.out.println("Compound Interest: " + ci);
     }
 }
