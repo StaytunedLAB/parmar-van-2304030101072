@@ -1,71 +1,142 @@
-// Banking System - Transaction & Balance Validator Template
+/* Banking System – Transaction & Balance Validator*/
 
-class BankAccount {
-    constructor(accountHolder, initialBalance = 0) {
-        this.accountHolder = accountHolder;
-        this.balance = initialBalance;
-        this.minBalance = 100; // Example Rule: Minimum required balance
-    }
+function processBankAccount(accountData) {
+    // Prevent modification of original input
+    const input = JSON.parse(JSON.stringify(accountData));
 
-    // Function to handle deposits and validation
-    deposit(amount) {
-        if (typeof amount !== 'number' || amount <= 0) {
-            throw new Error("InvalidDepositAmount: Amount must be a positive number.");
-        }
-        this.balance += amount;
-        return Deposit successful. New balance: $${this.balance.toFixed(2)};
-    }
+    // Extract fields safely
+    const accountNumber = input.accountNumber || "UNKNOWN";
+    const holderName = input.holderName || "UNKNOWN";
+    const currency = input.currency || "USD";
 
-    // Function to handle withdrawals and validation
-    withdraw(amount) {
-        if (typeof amount !== 'number' || amount <= 0) {
-            throw new Error("InvalidWithdrawalAmount: Amount must be a positive number.");
-        }
-        if (this.balance - amount < this.minBalance) {
-            throw new Error("InsufficientFunds: Withdrawal would drop the balance below the minimum required balance.");
-        }
-        this.balance -= amount;
-        return Withdrawal successful. New balance: $${this.balance.toFixed(2)};
-    }
-}
+    // Convert opening balance safely
+    let initialBalance = Number(input.initialBalance);
+    if (isNaN(initialBalance)) initialBalance = 0;
 
-/**
- * Main function to demonstrate a transaction (e.g., a withdrawal)
- * All operations are wrapped in try...catch as required.
- */
-function processTransaction(account, type, amount) {
-    console.log(\nAttempting ${type} of $${amount.toFixed(2)} for ${account.accountHolder}...);
+    let balance = initialBalance;
+
+    const applied = [];
+    const rejected = [];
+    let auditLogMessage = "";
+
     try {
-        let result;
-        if (type === 'deposit') {
-            result = account.deposit(amount);
-        } else if (type === 'withdraw') {
-            result = account.withdraw(amount);
-        } else {
-            throw new Error("InvalidTransactionType: Must be 'deposit' or 'withdraw'.");
-        }
-        
-        // Operation successful!
-        console.log("✅ SUCCESS:", result);
-        return true;
+        // Ensure transactions array exists
+        const transactions = Array.isArray(input.transactions)
+            ? input.transactions
+            : [];
 
-    } catch (error) {
-        // All errors must be handled here
-        console.error("❌ ERROR:", error.message);
-        return false;
+        for (const tx of transactions) {
+            try {
+                // Validate presence of fields
+                if (!tx || !tx.type) {
+                    rejected.push({
+                        transaction: tx,
+                        reason: "Missing transaction type"
+                    });
+                    continue;
+                }
+
+                const type = tx.type.trim().toLowerCase();
+                let amount = Number(tx.amount);
+
+                // Validate amount
+                if (isNaN(amount)) {
+                    rejected.push({
+                        transaction: tx,
+                        reason: "Amount is not a valid number"
+                    });
+                    continue;
+                }
+
+                if (amount <= 0) {
+                    rejected.push({
+                        transaction: tx,
+                        reason: "Amount must be greater than zero"
+                    });
+                    continue;
+                }
+
+                // Apply rules
+                if (type === "deposit") {
+                    balance += amount;
+                    applied.push({
+                        type: "Deposit",
+                        amount,
+                        newBalance: balance
+                    });
+                } else if (type === "withdraw") {
+
+                    if (amount > balance) {
+                        rejected.push({
+                            transaction: tx,
+                            reason: "Insufficient funds"
+                        });
+                        continue;
+                    }
+
+                    balance -= amount;
+                    applied.push({
+                        type: "Withdraw",
+                        amount,
+                        newBalance: balance
+                    });
+                } else {
+                    rejected.push({
+                        transaction: tx,
+                        reason: "Unknown transaction type"
+                    });
+                }
+
+            } catch (innerErr) {
+                // Catch unexpected transaction-level errors
+                rejected.push({
+                    transaction: tx,
+                    reason: "System Error"
+                });
+            }
+        }
+
+    } catch (err) {
+        // System-level unexpected error
+        auditLogMessage = "System Error occurred during processing.";
+    } finally {
+        // Always executed
+        if (!auditLogMessage) {
+            auditLogMessage = "Processing completed successfully.";
+        }
     }
+
+    // Final structured output
+    return {
+        accountNumber,
+        holderName,
+        currency,
+        initialBalance,
+        finalBalance: balance,
+        appliedTransactions: applied,
+        rejectedTransactions: rejected,
+        auditLog: auditLogMessage
+    };
 }
 
-// --- Demonstration (Example Usage) ---
 
-// Create an account
-const userAccount = new BankAccount("Alice Smith", 500);
+//   Example Usage
 
-// Example 1: Successful Withdrawal
-processTransaction(userAccount, 'withdraw', 100);
+const sampleInput = {
+    accountNumber: "ACC-9988",
+    holderName: "John Doe",
+    initialBalance: "1500",
+    currency: "USD",
+    transactions: [
+        { type: "Deposit", amount: 200 },
+        { type: "Withdraw", amount: 100 },
+        { type: "Withdraw", amount: 5000 },       
+        { type: "Deposit", amount: -20 },         
+        { type: "abc", amount: 30 },              
+        { type: "Withdraw", amount: "xyz" },      
+        { amount: 50 },                           
+        null                                      
+    ]
+};
 
-// Example 2: Failed Withdrawal (Insufficient Funds)
-processTransaction(userAccount, 'withdraw', 450); // Will fail because 500 - 450 = 50, which is < $100 minBalance
-
-// Example 3: Failed Deposit (Invalid Amount)
-processTransaction(userAccount, 'deposit', -50);
+console.log(processBankAccount(sampleInput));
