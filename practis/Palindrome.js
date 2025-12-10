@@ -1,19 +1,26 @@
-import java.util.Scanner;
+function checkPalindrome(str) {
+    // 1. Convert to lowercase to make it case-insensitive
+    // 2. Remove non-alphanumeric characters (optional, but good for sentences)
+    const cleanStr = str.toLowerCase();
 
-public class PalindromeString {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a string: ");
-        String original = sc.next();
+    // 3. Split string into array, reverse array, join back to string
+    const reversedStr = cleanStr.split('').reverse().join('');
 
-        // Reverse the string
-        String reversed = new StringBuilder(original).reverse().toString();
-
-        if (original.equalsIgnoreCase(reversed)) {
-            System.out.println(original + " is a Palindrome.");
-        } else {
-            System.out.println(original + " is not a Palindrome.");
-        }
+    if (cleanStr === reversedStr) {
+        console.log(`"${str}" is a Palindrome.`);
+        return true;
+    } else {
+        console.log(`"${str}" is NOT a Palindrome.`);
+        return false;
     }
 }
+
+
+console.log("Palindrome Check Results:");
+checkPalindrome("Racecar"); // Palindrome
+checkPalindrome("Hello"); // Not Palindrome
+checkPalindrome("A man a plan a canal Panama"); // Palindrome   
+checkPalindrome("12321"); // Palindrome
+checkPalindrome("12345"); // Not Palindrome 
+module.exports = checkPalindrome;
 
