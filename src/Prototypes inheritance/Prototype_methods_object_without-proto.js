@@ -9,9 +9,6 @@ alert(Object.getPrototypeOf(rabbit) === animal); // true
 
 Object.setPrototypeOf(rabbit, {});
 alert(rabbit.eats); // undefined
-
-
-
 let map = new Map();
 
 let key = prompt("What's the key?", "__proto__");
