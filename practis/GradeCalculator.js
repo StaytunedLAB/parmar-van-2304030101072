@@ -1,30 +1,34 @@
-import java.util.Scanner;
+function calculateGrade(score) {
+    let grade;
 
-public class GradeCalculator {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter your marks (0-100): ");
-        int marks = sc.nextInt();
-        char grade;
-
-        switch (marks / 10) {
-            case 10:
-            case 9:
-                grade = 'A';
-                break;
-            case 8:
-                grade = 'B';
-                break;
-            case 7:
-                grade = 'C';
-                break;
-            case 6:
-                grade = 'D';
-                break;
-            default:
-                grade = 'F';
-        }
-        System.out.println("Your Grade: " + grade);
+    switch (true) {
+        case (score >= 90 && score <= 100):
+            grade = "A";
+            break;
+        case (score >= 80 && score < 90):
+            grade = "B";
+            break;
+        case (score >= 70 && score < 80):
+            grade = "C";
+            break;
+        case (score >= 60 && score < 70):
+            grade = "D";
+            break;
+        case (score >= 0 && score < 60):
+            grade = "F";
+            break;
+        default:
+            grade = "Invalid Score";
     }
+
+    console.log(`Score: ${score}, Grade: ${grade}`);
 }
 
+console.log("Grade Calculation Results:");  
+calculateGrade(95); // A
+calculateGrade(85);
+calculateGrade(75);
+calculateGrade(65);
+calculateGrade(55);
+calculateGrade(-10); // Invalid Score
+module.exports = calculateGrade;

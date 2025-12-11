@@ -1,19 +1,19 @@
-import java.util.Scanner;
+function generateFibonacci(terms) {
+    let n1 = 0, n2 = 1, nextTerm;
+    let sequence = [];
 
-public class Fibonacci {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter number of terms: ");
-        int n = sc.nextInt();
+    console.log(`Fibonacci Series of ${terms} terms:`);
 
-        int first = 0, second = 1;
-        System.out.print("Fibonacci Series: " + first + " " + second);
-
-        for (int i = 2; i < n; i++) {
-            int next = first + second;
-            System.out.print(" " + next);
-            first = second;
-            second = next;
-        }
+    for (let i = 1; i <= terms; i++) {
+        sequence.push(n1);
+        nextTerm = n1 + n2;
+        n1 = n2;
+        n2 = nextTerm;
     }
+    
+    console.log(sequence.join(", "));
 }
+
+console.log("Fibonacci Sequence Generation:");
+generateFibonacci(10);  
+module.exports = generateFibonacci; 
