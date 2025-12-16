@@ -1,0 +1,29 @@
+:root{
+  --bg:#0f1724;
+  --card:#0b1220;
+  --accent:#06b6d4;
+  --text:#e6eef6;
+  --muted:#98a6b6;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,#071028 0%, #0b1220 100%);color:var(--text)}
+.app{max-width:520px;margin:40px auto;padding:24px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+h1{text-align:center;margin:0 0 18px;font-size:1.5rem}
+.scoreboard{display:flex;justify-content:space-between;padding:12px 18px;background:rgba(255,255,255,0.02);border-radius:10px;margin-bottom:16px}
+.score{font-weight:600}
+.choices{display:flex;justify-content:space-between;margin:18px 0}
+.choice{flex:1;margin:0 6px;padding:14px 8px;border-radius:10px;border:2px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));color:var(--text);font-size:1rem;cursor:pointer;transition:transform .12s, box-shadow .12s}
+.choice:first-child{margin-left:0}.choice:last-child{margin-right:0}
+.choice:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(6,182,212,0.08)}
+.choice.active{outline:3px solid rgba(6,182,212,0.14)}
+.result{min-height:64px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);margin-bottom:12px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.result .message{font-weight:700}
+.result .round-info{color:var(--muted);margin-top:6px}
+.controls{display:flex;justify-content:center}
+#reset{padding:8px 14px;border-radius:8px;border:none;background:transparent;color:var(--muted);cursor:pointer}
+.hint{text-align:center;color:var(--muted);font-size:.85rem;margin-top:12px}
+
+.win{box-shadow:0 10px 30px rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.25)}
+.lose{box-shadow:0 10px 30px rgba(255,74,87,0.12);border-color:rgba(255,74,87,0.18)}
+.draw{box-shadow:0 8px 20px rgba(160,160,160,0.06);border-color:rgba(255,255,255,0.03)}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>Rock · Paper · Scissors</h1>
+
+    <section class="scoreboard">
+      <div class="score">You: <span id="player-score">0</span></div>
+      <div class="score">Computer: <span id="computer-score">0</span></div>
+    </section>
+
+    <section class="choices">
+      <button class="choice" data-choice="rock">✊ Rock</button>
+      <button class="choice" data-choice="paper">✋ Paper</button>
+      <button class="choice" data-choice="scissors">✌️ Scissors</button>
+    </section>
+
+    <section id="result" class="result">
+      <div class="message">Make your choice</div>
+      <div class="round-info" aria-live="polite"></div>
+    </section>
+
+    <section class="controls">
+      <button id="reset">Reset Scores</button>
+    </section>
+
+    <footer class="hint">Tip: use keys R (rock), P (paper), S (scissors)</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
