@@ -14,5 +14,8 @@
         "javascript"
     ],
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "octokit": "^5.0.5"
+    }
 }
