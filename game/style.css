@@ -1,7 +1,7 @@
 :root{
   --bg: #0f1720;
   --panel: #0b1220;
-  --accent: #22c55e;
+  --accent: #fff200;
   --muted: #9ca3af;
 }
 *{box-sizing:border-box}
@@ -12,7 +12,7 @@ body{
   align-items:center;
   justify-content:center;
   font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  background:linear-gradient(180deg,#c800ff 0%, #0a4bff 100%);
+  background:linear-gradient(180deg,#00e7f8 0%, #eaa608 100%);
   color:#e6eef8;
 }
 .game-wrap{
